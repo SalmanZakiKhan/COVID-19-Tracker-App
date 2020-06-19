@@ -1,22 +1,36 @@
+import axios from "axios";
+
+const API_KEY = "https://covid19.mathdro.id/api";
 
 export const fetchWorldWideData = async () => {
-   return await fetch("https://covid19.mathdro.id/api")
-   .then(res => res.json())
-   .catch(err => console.log(err));
+
+    try {
+      const response = await axios.get(API_KEY);
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+      return error;
+    }
  }
 
  export const fetchCountriesData = async () => {
-   return await fetch("https://covid19.mathdro.id/api/countries")
-        .then(res => res.json())
-        .then(({countries}) => this.setState(countries.map((country) => country.name)))
-        .catch(err => console.log(err));
+
+   try {
+     const response = await axios.get(`${API_KEY}/countries`);
+     console.log(response);
+   } catch (error) {
+     console.log(error);
+   }
 
  }
- 
 
- export const fetchCountryData = async () => {
-   return await fetch(`https://covid19.mathdro.id/api/countries/Pakistan`)
-    .then(res => res.json())
-    .then(data => console.log(data))
-    .catch(err => console.log(err));
+ export const fetchCountryData = async (country) => {
+  
+  try {
+    const response = await axios.get(`${API_KEY}/${country}`);
+    console.log(response);
+  } catch (error) {
+    console.log(error);
+  }
+  
  }

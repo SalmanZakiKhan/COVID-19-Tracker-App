@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Cards from "./components/Cards"
 import Chart from "./components/Chart"
 import SearchBar from "./components/SearchBar"
+//import { fetchCountriesData,fetchWorldWideData,fetchCountryData } from "./components/api"
 import "./App.css"
 
  class App extends Component {
@@ -40,14 +41,16 @@ import "./App.css"
      .then(data => this.setState({
        totalNumber: data.confirmed.value,
        totalRecovered: data.recovered.value,
-       totalDeaths: data.deaths.value
+       totalDeaths: data.deaths.value,
+       currentCountry: country
      }))
      .catch(err => console.log(err));
   }
   
   onCountryChange = async (country) => {
-     this.setState({currentCountry: country});
+    
      if (country === "World") {
+       this.setState({currentCountry: country})
        return await this.fetchWorldWideData();
      }
      return await this.fetchCountryData(country);
@@ -62,10 +65,10 @@ import "./App.css"
     const { totalNumber,totalRecovered,totalDeaths,countryNames,currentCountry } = this.state;
     return (
       <div className="container"> 
-        <h1>COVID-19 TRACKER APP</h1>
-        <Cards totalNumber={totalNumber} totalRecovered={totalRecovered} totalDeaths={totalDeaths}/> 
-        <SearchBar countryNames={countryNames} onCountryChange={this.onCountryChange}/>
-        <Chart totalNumber={totalNumber} totalRecovered={totalRecovered} totalDeaths={totalDeaths} currentCountry={currentCountry}/>
+          <h1>COVID-19 TRACKER APP</h1>
+          <Cards totalNumber={totalNumber} totalRecovered={totalRecovered} totalDeaths={totalDeaths}/> 
+          <SearchBar countryNames={countryNames} onCountryChange={this.onCountryChange}/>
+          <Chart totalNumber={totalNumber} totalRecovered={totalRecovered} totalDeaths={totalDeaths} currentCountry={currentCountry}/>
       </div>
     )
   }
