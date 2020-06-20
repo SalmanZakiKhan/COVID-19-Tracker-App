@@ -1,77 +1,73 @@
-import React, { Component } from 'react';
+import React, { Component,useState,useEffect } from 'react';
 import Cards from "./components/Cards"
 import Chart from "./components/Chart"
 import SearchBar from "./components/SearchBar"
 //import { fetchCountriesData,fetchWorldWideData,fetchCountryData } from "./components/api"
 import "./App.css"
 
- class App extends Component {
 
-  state = {
-    totalNumber: null,
-    totalRecovered: null,
-    totalDeaths: null,
-    currentCountry: '',
-    countryNames: []
-  }
+const App = () => {
 
-  fetchWorldWideData = async () => {
+  const [currentNumbers,setCurrentNumbers] = useState({}); 
+  const [countries,setCurrentCountries] = useState([]);
+  const [country,setCountry] = useState('');
+
+  // useEffect(() => {
+  //    fetchWorldWideData();
+  //    fetchCountriesData();
+  // },[])
+
+
+  const fetchWorldWideData = async () => {
      await fetch("https://covid19.mathdro.id/api")
     .then(res => res.json())
-    .then(({confirmed, recovered, deaths}) => this.setState({
-      totalNumber: confirmed.value,
-      totalRecovered: recovered.value,
-      totalDeaths: deaths.value
+    .then(({confirmed, recovered, deaths}) => setCurrentNumbers({
+      confirmed,
+      recovered,
+      deaths
     }))
     .catch(err => console.log(err)); 
   }
 
-  fetchCountriesData = async () => {
+  const fetchCountriesData = async () => {
     await fetch("https://covid19.mathdro.id/api/countries")
     .then(res => res.json())
-    .then(({countries}) => this.setState({ 
-      countryNames: countries.map((country) => country.name)
-     }))
+    .then(({countries}) => setCurrentCountries(countries.map(country => country)))
     .catch(err => console.log(err));
   }
   
-  fetchCountryData = async (country) => {
+  const fetchCountryData = async (country) => {
      await fetch(`https://covid19.mathdro.id/api/countries/${country}`)
      .then(res => res.json())
-     .then(data => this.setState({
-       totalNumber: data.confirmed.value,
-       totalRecovered: data.recovered.value,
-       totalDeaths: data.deaths.value,
-       currentCountry: country
-     }))
+     .then(data => {
+       setCountry(country);
+       setCurrentNumbers({
+       confirmed: data.confirmed.value,
+       recovered: data.recovered.value,
+       deaths: data.deaths.value,
+     });
+  })
      .catch(err => console.log(err));
   }
   
-  onCountryChange = async (country) => {
+  const onCountryChange = async (country) => {
     
      if (country === "World") {
-       this.setState({currentCountry: country})
-       return await this.fetchWorldWideData();
+       setCountry(country);
+       return await fetchWorldWideData();
      }
-     return await this.fetchCountryData(country);
-  }
-
-  async componentDidMount() {
-    await this.fetchWorldWideData();
-    await this.fetchCountriesData();
+     return await fetchCountryData(country);
   }
   
-  render() {
-    const { totalNumber,totalRecovered,totalDeaths,countryNames,currentCountry } = this.state;
     return (
       <div className="container"> 
           <h1>COVID-19 TRACKER APP</h1>
-          <Cards totalNumber={totalNumber} totalRecovered={totalRecovered} totalDeaths={totalDeaths}/> 
-          <SearchBar countryNames={countryNames} onCountryChange={this.onCountryChange}/>
-          <Chart totalNumber={totalNumber} totalRecovered={totalRecovered} totalDeaths={totalDeaths} currentCountry={currentCountry}/>
+          <Cards currentNumbers={currentNumbers}/> 
+          <SearchBar countries={countries} onCountryChange={onCountryChange}/>
+          <Chart currentNumbers={currentNumbers} country={country}/>
       </div>
     )
-  }
+  
 }
 
 export default App
