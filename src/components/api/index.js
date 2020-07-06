@@ -1,36 +1,44 @@
 import axios from "axios";
 
-const API_KEY = "https://covid19.mathdro.id/api";
+export const fetchData = async (country) => {
 
-export const fetchWorldWideData = async () => {
+  var API_KEY = "https://covid19.mathdro.id/api";
+  
+   if(country !== 'World'){
+     API_KEY = `https://covid19.mathdro.id/api/countries/${country}`
+   }
 
-    try {
-      const response = await axios.get(API_KEY);
-      console.log(response);
-    } catch (error) {
-      console.log(error);
-      return error;
-    }
- }
+  try {
+  const {data:{confirmed,recovered,deaths,lastUpdate}} = await axios.get(API_KEY);
+  return {confirmed,recovered,deaths,lastUpdate}
+  } catch(error){
+    console.log(error);
+  }
+}
+
 
  export const fetchCountriesData = async () => {
-
+  
+  var API_KEY = "https://covid19.mathdro.id/api/countries";
    try {
-     const response = await axios.get(`${API_KEY}/countries`);
-     console.log(response);
+     const {data : {countries}} = await axios.get(API_KEY);
+     return countries;
    } catch (error) {
      console.log(error);
+   
    }
 
  }
 
- export const fetchCountryData = async (country) => {
-  
-  try {
-    const response = await axios.get(`${API_KEY}/${country}`);
-    console.log(response);
-  } catch (error) {
-    console.log(error);
-  }
-  
- }
+
+ export const fetchDailyData = async () => {
+   
+  var API_KEY = "https://covid19.mathdro.id/api/daily"
+     try {
+       const {data} = await axios.get(API_KEY);
+       return {data}
+     }
+    catch (error) {
+      console.log(error);
+    }
+   }
