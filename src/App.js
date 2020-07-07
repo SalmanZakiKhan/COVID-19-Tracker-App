@@ -47,7 +47,7 @@ const App = () => {
       <Cards currentNumbers={currentNumbers}/> 
       <SearchBar countries={countries} onCountryChange={onCountryChange}/>
       <div className="bars">
-        <Chart currentNumbers={currentNumbers} mulk={mulk} />
+        <Chart currentNumbers={currentNumbers}  mulk={mulk} />
       </div>
     </div> 
   )

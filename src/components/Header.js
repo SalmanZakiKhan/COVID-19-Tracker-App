@@ -3,8 +3,7 @@ import image from "./../images/covid-19 image.jpg"
 
 function Header() {
     return (
-        <h1>COVID-19 
-            TRACKER APP
+        <h1 className="header">COVID-19 TRACKER APP
             {/* <img src={image} alt="covid-19 image" />*/}
             </h1>
     )

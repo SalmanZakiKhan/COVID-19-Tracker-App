@@ -5,13 +5,14 @@ import { Line,Bar } from "react-chartjs-2";
 
 const Chart = ({currentNumbers:{confirmed,recovered,deaths},mulk}) => {
 
+  console.log(mulk);
+
   if(!confirmed){
     return null
   }
 
   const [numbers,setNumbers] = useState([]);            
-  const [loading,setLoading] = useState(false);
-    
+ 
   useEffect(() => {
     const fetchData = async () => {
       const {data} = await fetchDailyData();

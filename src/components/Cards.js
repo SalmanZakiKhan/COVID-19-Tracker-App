@@ -15,31 +15,31 @@ function Cards({currentNumbers : {confirmed,recovered,deaths,lastUpdate}}) {
 return (
  <div>
  <Grid container spacing={3} justify="center">
-     <Grid item xs={12} md={3} component={Card} className="card confirmed">
+      <Grid item xs={12} md={3} component={Card} className="card confirmed">
         <CardContent>
-          <Typography variant="h6" gutterbottom>Total number of cases</Typography>
+          <Typography variant="h6">Total number of cases</Typography>
           <Typography variant="h6"> 
              <CountUp start={0} end={confirmed.value} duration={2} separator={","}/>
           </Typography>
-          <Typography>{new Date(lastUpdate).toLocaleString()}</Typography>
+          <Typography className="date">{new Date(lastUpdate).toLocaleString()}</Typography>
        </CardContent>
-   </Grid>
-   <Grid item xs={12} md={3} component={Card} className="card recovered">
+   </Grid> 
+    <Grid item xs={12} md={3} component={Card} className="card recovered">
         <CardContent>
-          <Typography variant="h6" gutterbottom>Total number of recoveries</Typography>
-          <Typography variant="h6" gutterbottom>
+          <Typography variant="h6">Total number of recoveries</Typography>
+          <Typography variant="h6">
             <CountUp start={0} end={recovered.value} duration={2} separator={","}/>
           </Typography>
-          <Typography>{new Date(lastUpdate).toLocaleString()}</Typography>
+          <Typography className="date">{new Date(lastUpdate).toLocaleString()}</Typography>
        </CardContent>
    </Grid>
    <Grid item xs={12} md={3} component={Card} className="card deaths">
         <CardContent>
-          <Typography variant="h6" gutterbottom>Total number of deaths</Typography>
-          <Typography variant="h6" gutterbottom>
+          <Typography variant="h6">Total number of deaths</Typography>
+          <Typography variant="h6">
             <CountUp start={0} end={deaths.value} duration={2} separator={","}/>
           </Typography>
-          <Typography>{new Date(lastUpdate).toLocaleString()}</Typography>
+          <Typography className="date">{new Date(lastUpdate).toLocaleString()}</Typography>
        </CardContent>
    </Grid>
  </Grid>

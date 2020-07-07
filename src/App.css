@@ -8,7 +8,7 @@ body {
   align-items: center;
 }
 
-h1 {
+.header {
   font-style: oblique;
 }
 
@@ -20,6 +20,7 @@ img {
 .searchcountry {
   width: 500px;
   margin: 30px 0px;
+  margin-top: 50px;
 }
 
 .bars {  
@@ -29,7 +30,8 @@ img {
 
 .card {
   width: 300px !important;
-  margin-right: 5px !important;
+  margin-right: 15px !important;
+  box-shadow: 5px 5px 8px #888888 !important;
 }
 
 .confirmed {
@@ -47,6 +49,11 @@ img {
   border-bottom: 8px solid red !important;
 }
 
-.card:hover {
-  background-color: whitesmoke;
+.date {
+  margin-top: 15px !important;
 }
+
+
+
+
+
