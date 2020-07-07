@@ -1,5 +1,4 @@
 import React from 'react'
-import image from "./../images/covid-19 image.jpg"
 
 function Header() {
     return (
