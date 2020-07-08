@@ -21,7 +21,7 @@ const App = () => {
       setCountries(result.map(country => country.name));
     }
     
-    fetchStats('World');
+    fetchStats(mulk);
 
     fetchCountries();
     
