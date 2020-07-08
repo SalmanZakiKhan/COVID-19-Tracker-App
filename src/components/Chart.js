@@ -5,8 +5,6 @@ import { Line,Bar } from "react-chartjs-2";
 
 const Chart = ({currentNumbers:{confirmed,recovered,deaths},mulk}) => {
 
-  console.log(mulk);
-
   if(!confirmed){
     return null
   }
